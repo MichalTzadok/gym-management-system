@@ -1,19 +1,20 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
-import connection from './config/db';
-import users from './routers/user.router';
+import connectDB from './config/db';
+import config from './config/config';
+import userRoutes from './routers/user.router';
+import swaggerMiddleware from './middleware/swagger.middleware'; 
 
 const app = express();
+const port = config.server.port;
 
-const port = 3000;
-
-connection();
+connectDB();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(users)
-
+swaggerMiddleware(app);
+app.use('/users', userRoutes);
 app.listen(port, () => {
   console.log(` app listening on port ${port}`);
 });

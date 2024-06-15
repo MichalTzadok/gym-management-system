@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { IUser } from '../models/user.model';
-import {  config} from "../config/config";
+import config from "../config/config";
 
 
-dotenv.config();
 
 interface AuthenticatedRequest extends Request {
   user?: IUser;  

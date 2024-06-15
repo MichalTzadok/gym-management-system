@@ -8,10 +8,10 @@ interface IUser extends Document {
 }
 
 const UserSchema = new Schema<IUser>({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  role: { type: String, enum: ['admin', 'user'], default: 'user', required: true},
 });
 
 const UserModel = model<IUser>('User', UserSchema);
