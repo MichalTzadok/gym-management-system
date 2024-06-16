@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, model, Document, Model } from 'mongoose';
 
 interface IUser extends Document {
   username: string;
@@ -7,7 +7,7 @@ interface IUser extends Document {
   role: 'admin' | 'user';
 }
 
-const UserSchema = new Schema<IUser>({
+const UserSchema:Schema = new Schema<IUser>({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
