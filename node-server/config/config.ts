@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const config = {
   database: {
       url: process.env.MONGODB_URI || 'mongodb://localhost/gym-management',
