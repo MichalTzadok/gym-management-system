@@ -9,7 +9,7 @@ interface IService extends Document {
 const serviceSchema: Schema = new Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    businessId: { type: Schema.Types.ObjectId, ref: 'Business'},
+    businessId: { type: Schema.Types.ObjectId, required: true, ref: 'Business'},
 });
 
 const ServiceModel = model<IService>('Service', serviceSchema);
