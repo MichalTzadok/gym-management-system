@@ -20,6 +20,29 @@
         "business": { "type": "string", "format": "objectId" }
       },
       "required": ["name", "price", "business"]
+    },
+    "Business": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "userId": { "type": "string", "format": "objectId" }
+      },
+      "required": ["name", "description", "address", "phone", "userId"]
+    },
+    "Meeting": {
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "format": "objectId" },
+        "details": { "type": "string" },
+        "serviceId": { "type": "string", "format": "objectId" },
+        "date": { "type": "string", "format": "date" },
+        "startTime": { "type": "string", "format": "time" },
+        "duration": { "type": "number" }
+      },
+      "required": ["userId", "details", "serviceId", "date", "startTime", "duration"]
     }
   }
   
