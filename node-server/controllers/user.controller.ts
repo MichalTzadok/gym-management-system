@@ -6,7 +6,6 @@ import { CustomError } from '../types/customError';
 export const get_user = async (req: Request, res: Response) => {
     try {
         const user = await getUser(req);
-        console.log(user);
         return res.status(200).json({ user });
     } catch (error) {
         console.error('Error getting user:', error);
@@ -18,7 +17,6 @@ export const get_users = async (req: Request, res: Response) => {
     try {
         
         const users = await getUsers();
-        console.log(users);
         return res.status(200).json({ users });
     } catch (error) {
         console.error('Error getting users:', error);

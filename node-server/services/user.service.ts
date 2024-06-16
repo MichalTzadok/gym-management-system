@@ -6,9 +6,7 @@ import { CustomError } from '../types/customError';
 
 export const getUsers = async () => {
   try {
-      const users = await UserModel.find();
-      console.log(users);
-      
+      const users = await UserModel.find();      
       return users
 
   } catch (error) {
@@ -22,7 +20,6 @@ export const getUser = async (req: Request) => {
 
   try {
       const user = await UserModel.findById(id);
-
       if (!user) {
           throw new CustomError( 'User not found' ,404);
       }
