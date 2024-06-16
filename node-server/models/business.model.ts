@@ -4,18 +4,15 @@ interface IBusiness extends Document {
     description: string;
     address: string;
     phone: string;
-    user: Types.ObjectId;
+    userId: Types.ObjectId;
 }
 const businessSchema: Schema<IBusiness> = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     address: { type: String, required: true },
     phone: { type: String, required: true },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
+    userId: {type: Schema.Types.ObjectId, ref: 'User', required: true },
+
 });
 const BusinessModel = model<IBusiness>('Business', businessSchema);
 export { BusinessModel, IBusiness };
