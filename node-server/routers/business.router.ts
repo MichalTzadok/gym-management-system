@@ -1,5 +1,5 @@
 import express from 'express';
-import { delete_business, get_business, get_businesses, post_business, put_business } from '../controllers/businessController';
+import { delete_business, get_business, get_businesses, post_business, put_business } from '../controllers/business.controller';
 
 const router = express.Router();
 
