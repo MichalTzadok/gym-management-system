@@ -1,6 +1,10 @@
 import express from 'express';
 import {  get_user, get_users } from '../controllers/user.controller';
 import { adminOnly } from '../middleware/auth.middleware';
+import { logMiddleware } from '../middleware/log.middleware';
+const app = express();
+
+app.use(logMiddleware);
 
 const router = express.Router();
 

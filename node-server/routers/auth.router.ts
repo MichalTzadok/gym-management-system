@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users/signup:
+ * /signup:
  *   post:
  *     summary: Register a new user
  *     description: Endpoint for user registration
@@ -26,7 +26,7 @@ router.post('/signup', post_signup);
 
 /**
  * @swagger
- * /users/signin:
+ * /signin:
  *   post:
  *     summary: User sign-in
  *     description: Endpoint for user sign-in
