@@ -5,7 +5,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const schemas = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../schemas.json'), 'utf8'));
-
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -16,6 +15,12 @@ const options = {
     },
     components: {
       schemas, 
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      
     },
   },
   apis: ['./routers/*.ts'],

@@ -15,6 +15,9 @@ const router = express.Router();
  *     summary: Get all users
  *     description: Retrieve a list of all users
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []  # Requires authentication with JWT token
+ *       - adminAuth: []   # Requires admin privileges
  *     responses:
  *       '200':
  *         description: A list of users

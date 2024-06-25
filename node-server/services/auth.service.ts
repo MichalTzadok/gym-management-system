@@ -22,6 +22,8 @@ export const signUp = async (req: Request) => {
     });
     try {
         await newUser.save();
+        console.log("jjjj");
+        
     } catch (error) {
         console.error('Error saving user:', error);
         throw new CustomError('Failed to save user', 500);
