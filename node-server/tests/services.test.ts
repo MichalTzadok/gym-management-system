@@ -14,7 +14,6 @@ import { Model } from 'mongoose';
 jest.mock('../models/service.model');
 jest.mock('../models/business.model');
 
-// הגדרת מוקאים מותאמים עבור ServiceModel ו-BusinessModel
 const MockedServiceModel = ServiceModel as jest.Mocked<any>;
 const MockedBusinessModel = BusinessModel as jest.Mocked<any>;
 
@@ -54,10 +53,8 @@ describe('Service Service', () => {
         it('should update an existing service', async () => {
             const req = { body: { id: 'existingServiceId', name: 'Updated Service', price: 150, businessId: 'validBusinessId' } } as Request;
 
-            // Mocking the BusinessModel findById method
             MockedBusinessModel.findById.mockResolvedValue(true);
 
-            // Mocking the ServiceModel findByIdAndUpdate method
             const mockedUpdatedService = { _id: 'existingServiceId', name: 'Updated Service', price: 150, businessId: 'validBusinessId' };
             MockedServiceModel.findByIdAndUpdate.mockResolvedValue(mockedUpdatedService);
 
@@ -85,7 +82,6 @@ describe('Service Service', () => {
         it('should delete an existing service', async () => {
             const req: Request<{ serviceId: string }> = { params: { serviceId: 'existingServiceId' } } as Request<{ serviceId: string }>;
 
-            // Mocking the ServiceModel findById and findByIdAndDelete methods
             const mockedService = { _id: 'existingServiceId', name: 'Test Service', price: 100, businessId: 'validBusinessId' };
             MockedServiceModel.findById.mockResolvedValue(mockedService);
             MockedServiceModel.findByIdAndDelete.mockResolvedValue(mockedService);
@@ -106,7 +102,6 @@ describe('Service Service', () => {
 
     describe('getServices function', () => {
         it('should get all services', async () => {
-            // Mocking the ServiceModel find method
             const mockedServices = [
                 { _id: 'serviceId1', name: 'Service 1', price: 100, businessId: 'businessId1' },
                 { _id: 'serviceId2', name: 'Service 2', price: 150, businessId: 'businessId2' }
@@ -123,7 +118,6 @@ describe('Service Service', () => {
         it('should get an existing service', async () => {
             const req = { params: { serviceId: 'existingServiceId' } } as Request<{ serviceId: string }>;
 
-            // Mocking the ServiceModel findById method
             const mockedService = { _id: 'existingServiceId', name: 'Test Service', price: 100, businessId: 'validBusinessId' };
             MockedServiceModel.findById.mockResolvedValue(mockedService);
 
