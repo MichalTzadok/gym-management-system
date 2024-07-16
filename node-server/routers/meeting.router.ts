@@ -1,22 +1,23 @@
+import express from 'express';
+import { delete_meeting, get_meeting, get_meetings, get_meetings_by_user, post_meeting, put_meeting } from '../controllers/meeting.controller';
+import { adminOnly } from '../middleware/auth.middleware';
+
+const router = express.Router();
+
+router.post('/', post_meeting);
+router.get('/', get_meetings);
+router.get('/user/:userId', get_meetings_by_user);
+router.get('/:meetingId', get_meeting);
+router.put('/:meetingId',adminOnly, put_meeting);
+router.delete('/:meetingId',adminOnly, delete_meeting);
+
+// export default router;
+
 // import express from 'express';
 // import { delete_meeting, get_meeting, get_meetings, post_meeting, put_meeting } from '../controllers/meeting.controller';
 // import { adminOnly } from '../middleware/auth.middleware';
 
 // const router = express.Router();
-
-// router.post('/', post_meeting);
-// router.get('/', get_meetings);
-// router.get('/:meetingId', get_meeting);
-// router.put('/',adminOnly, put_meeting);
-// router.delete('/:meetingId',adminOnly, delete_meeting);
-
-// export default router;
-
-import express from 'express';
-import { delete_meeting, get_meeting, get_meetings, post_meeting, put_meeting } from '../controllers/meeting.controller';
-import { adminOnly } from '../middleware/auth.middleware';
-
-const router = express.Router();
 
 /**
  * @swagger
@@ -88,6 +89,36 @@ router.get('/', get_meetings);
  */
 router.get('/:meetingId', get_meeting);
 
+
+/**
+ * @swagger
+ * /meetings/user/{userId}:
+ *   get:
+ *     summary: Get meetings by user ID
+ *     description: Retrieve a list of meetings for a specific user
+ *     tags: [Meetings]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       '200':
+ *         description: A list of meetings for the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Meeting'
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: An error occurred while fetching the meetings
+ */
+router.get('/user/:userId', get_meetings_by_user);
 /**
  * @swagger
  * /meetings:
@@ -113,7 +144,7 @@ router.get('/:meetingId', get_meeting);
  *       '404':
  *         description: Meeting not found
  */
-router.put('/', adminOnly, put_meeting);
+router.put('/:meetingId', adminOnly, put_meeting);
 
 /**
  * @swagger

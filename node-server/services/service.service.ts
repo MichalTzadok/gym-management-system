@@ -6,7 +6,7 @@ import { BusinessModel } from '../models/business.model';
 
 export const createService = async (req: Request) => {
     const { name,description, price,duration, businessId } = req.body;
-    if (!name ||!description|| !price || !duration||!businessId )
+    if (!name ||!description|| !price || !duration )
         throw new CustomError('Missing required fields', 400);
     const isBusinessIdValid = await BusinessModel.findById(businessId);
     if (!isBusinessIdValid) 
@@ -28,14 +28,15 @@ export const createService = async (req: Request) => {
 };
 
 export const updateService = async (req: Request) => {
-    const { id, name,description, price,duration, businessId } = req.body;
-    if (!id || !name ||!description || !price|| !duration || !businessId) 
+    const { serviceId } = req.params; 
+    const {  name,description, price,duration, businessId } = req.body;
+    if (!serviceId  || !name ||!description || !price|| !duration || !businessId) 
         throw new CustomError('Missing required fields', 400);
     const isBusinessIdValid = await BusinessModel.findById(businessId);
     if (!isBusinessIdValid) 
         throw new CustomError('Invalid businessId', 422);
     try {
-        const serviceToUpdate = await ServiceModel.findByIdAndUpdate(id , { name,description, price,duration, businessId }, { new: true });
+        const serviceToUpdate = await ServiceModel.findByIdAndUpdate(serviceId  , { name,description, price,duration, businessId }, { new: true });
         if (!serviceToUpdate) {
             throw new CustomError('Service not found', 404);
         }

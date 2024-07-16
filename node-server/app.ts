@@ -8,6 +8,8 @@ import serviceRoutes from './routers/service.router';
 import businessRoutes from './routers/business.router';
 import meetingRoutes from './routers/meeting.router';
 import authRoutes from './routers/auth.router';
+import { loggedIn } from './middleware/auth.middleware';
+import { logMiddleware } from './middleware/log.middleware';
 // import passport from 'passport';
 // import Auth0Strategy from 'passport-auth0';
 // import session from 'express-session';
@@ -21,6 +23,7 @@ const port = config.server.port;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(logMiddleware);
 
 swaggerMiddleware(app);
 
@@ -56,6 +59,8 @@ swaggerMiddleware(app);
 // });
 
 app.use('/', authRoutes);
+app.use(loggedIn);
+
 app.use('/users', userRoutes);
 app.use('/services', serviceRoutes);
 app.use('/businesses', businessRoutes);

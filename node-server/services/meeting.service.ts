@@ -22,7 +22,6 @@ export const createMeeting = async (req: Request) => {
         throw new CustomError('Invalid serviceId', 422);
     }
 
-    // Check for overlapping meetings
     const date_time = new Date(dateTime);
     const isOverlap = await checkOverlap(date_time, duration);
     if (isOverlap) {
@@ -46,8 +45,9 @@ export const createMeeting = async (req: Request) => {
 };
 
 export const updateMeeting = async (req: Request) => {
-    const { id, userId, details, serviceId, dateTime, duration } = req.body;
-    if (!id || !userId || !details || !serviceId  || !dateTime ||  !duration)
+    const { meetingId } = req.params; 
+    const {  userId, details, serviceId, dateTime, duration } = req.body;
+    if (!meetingId || !userId || !details || !serviceId  || !dateTime ||  !duration)
         throw new CustomError('Missing required fields', 400);
     const isUserIdValid = await UserModel.findById(userId);
     if (!isUserIdValid)
@@ -58,12 +58,12 @@ export const updateMeeting = async (req: Request) => {
         throw new CustomError('Invalid serviceId', 422);
 
     const date_time = new Date(dateTime);
-    const isOverlap = await checkOverlap(date_time, duration ,id);
+    const isOverlap = await checkOverlap(date_time, duration ,meetingId);
     if (isOverlap) {
         throw new CustomError('Overlap with existing meeting', 409);
     }
     try {
-        const meetingToUpdate = await MeetingModel.findByIdAndUpdate(id, { userId, details, serviceId, dateTime , duration }, { new: true });
+        const meetingToUpdate = await MeetingModel.findByIdAndUpdate(meetingId, { userId, details, serviceId, dateTime , duration }, { new: true });
         if (!meetingToUpdate) {
             throw new CustomError('Meeting not found', 404);
         }
@@ -104,4 +104,18 @@ export const getMeeting = async (req: Request) => {
     }
 
     return meeting;
+};
+
+export const getMeetingsByUserId = async (req: Request) => {
+    const { userId } = req.params;
+    if (!userId) {
+        throw new CustomError('Missing userId parameter', 400);
+    }
+
+    const meetings = await MeetingModel.find({ userId });
+    if (!meetings.length) {
+        throw new CustomError('No meetings found for this userId', 404);
+    }
+
+    return meetings;
 };

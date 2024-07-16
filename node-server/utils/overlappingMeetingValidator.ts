@@ -1,9 +1,10 @@
 import { Types } from 'mongoose';
 import { MeetingModel } from '../models/meeting.model';
 
-
-export const checkOverlap = async (dateTime: Date, duration: number, id: Types.ObjectId = new Types.ObjectId()): Promise<boolean> => {
+export const checkOverlap = async (dateTime: Date, duration: number, id?: string): Promise<boolean> => {
     const endDateTime = new Date(dateTime.getTime() + duration * 60000);
+    const objectId = id ? new Types.ObjectId(id) : new Types.ObjectId();
+
     const overlappingMeeting = await MeetingModel.findOne({
         $or: [
             {
@@ -19,7 +20,7 @@ export const checkOverlap = async (dateTime: Date, duration: number, id: Types.O
                 ]
             }
         ],
-        _id: { $ne: id }
+        _id: { $ne: objectId }
     });
 
     return !!overlappingMeeting;
