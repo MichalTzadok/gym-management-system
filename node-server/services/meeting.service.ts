@@ -89,3 +89,13 @@ export const getMeeting = async (req: Request) => {
 
     return meeting;
 };
+
+export const getUserMeetings = async (req: Request) => {
+    const { userId } = req.params;
+    const meetings = await MeetingModel.find({ userId: userId });
+    if (!meetings) {
+        throw new CustomError('Meetings not found', 404);
+    }
+
+    return meetings;
+};
