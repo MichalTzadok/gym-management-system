@@ -1,7 +1,6 @@
 import { Response, Request } from 'express';
 import { CustomError } from '../types/customError';
 import { createService, deleteService, getService, getServices, updateService } from '../services/service.service';
-
 export const post_service = async (req: Request, res: Response) => {
     try {
         const result = await createService(req);
@@ -54,3 +53,4 @@ export const put_service = async (req: Request, res: Response) => {
         return res.status((error instanceof CustomError && error.code) || 500).json({message: error instanceof CustomError && error.message ||  'Error during updating service'});
     }
 };
+

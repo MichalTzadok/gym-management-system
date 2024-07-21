@@ -22,7 +22,6 @@ export const signUp = async (req: Request) => {
     });
     try {
         await newUser.save();
-        console.log("jjjj");
         
     } catch (error) {
         console.error('Error saving user:', error);

@@ -68,5 +68,4 @@ export const get_user_meetings = async (req: Request, res: Response) => {
     catch (error) {
         console.error('Error getting user meetings:', error);
         return res.status((error instanceof CustomError && error.code) || 500).json({ message: (error instanceof CustomError && error.message) || 'An error occurred while getting the user meetings' });
-    }
-};
+    }}

@@ -1,10 +1,8 @@
 import express from 'express';
 import {  get_user, get_users } from '../controllers/user.controller';
 import { adminOnly } from '../middleware/auth.middleware';
-import { logMiddleware } from '../middleware/log.middleware';
 const app = express();
 
-app.use(logMiddleware);
 
 const router = express.Router();
 
@@ -30,7 +28,7 @@ const router = express.Router();
  *       '500':
  *         description: An error occurred while fetching users
  */
-router.get('/',adminOnly, get_users);
+router.get('/', get_users);
 
 /**
  * @swagger

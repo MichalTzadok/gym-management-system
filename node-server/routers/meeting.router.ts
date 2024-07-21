@@ -1,5 +1,6 @@
 import express from 'express';
 import { delete_meeting, get_meeting, get_meetings, get_user_meetings, post_meeting, put_meeting } from '../controllers/meeting.controller';
+
 import { adminOnly } from '../middleware/auth.middleware';
 
 const router = express.Router();
@@ -12,6 +13,14 @@ router.put('/',adminOnly, put_meeting);
 router.delete('/:meetingId',adminOnly, delete_meeting);
 
 
+
+// export default router;
+
+// import express from 'express';
+// import { delete_meeting, get_meeting, get_meetings, post_meeting, put_meeting } from '../controllers/meeting.controller';
+// import { adminOnly } from '../middleware/auth.middleware';
+
+// const router = express.Router();
 
 /**
  * @swagger
@@ -108,7 +117,7 @@ router.get('/:meetingId', get_meeting);
  *       '404':
  *         description: Meeting not found
  */
-router.put('/', adminOnly, put_meeting);
+router.put('/:meetingId', adminOnly, put_meeting);
 
 /**
  * @swagger
