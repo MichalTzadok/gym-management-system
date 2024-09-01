@@ -15,7 +15,11 @@ const Login: React.FC = () => {
       const signInData = { email, password };
       const userData = await signIn(signInData);
       authContext?.setAuth(userData);
-      navigate('/'); 
+      if(userData.role==='admin')
+        navigate('/admin'); 
+      else
+        navigate('/Home'); 
+
     } catch (error) {
       console.error('Error during login:', error);
     }

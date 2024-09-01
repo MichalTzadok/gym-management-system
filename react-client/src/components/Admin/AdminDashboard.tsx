@@ -1,16 +1,16 @@
-import React from 'react';
-import BusinessDetails from './BusinessDetails';
-// import Services from './Services';
-// import Appointments from './Appointments';
-// import Customers from './Customers';
+import { Link } from "react-router-dom";
 
-const AdminDashboard: React.FC = () => {
-  return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      { <BusinessDetails />}
-    </div>
-  );
+const AdminDashboard: React.FC = () => {    return (
+        <div>
+            <Link to={'BusinessDetails'}>Business Details</Link>
+            <br />
+            <Link to={'Meetings'}>All meeting</Link>
+            <br />
+            <Link to={'Services'}>All services</Link>
+            <br />
+            <Link to={'Customers'}>All users</Link>
+        </div>
+    );
 };
 
 export default AdminDashboard;

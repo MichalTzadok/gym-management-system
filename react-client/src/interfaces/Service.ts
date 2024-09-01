@@ -1,8 +1,16 @@
 export interface Service {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    duration: string;
-  }
-  
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  duration: string;
+  businessId: string;
+}
+
+export interface NewService {
+  name: string;
+  description: string;
+  price: number;
+  duration: string;
+  businessId: string;
+}

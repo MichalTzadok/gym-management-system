@@ -9,7 +9,6 @@ import {
 import { ServiceModel } from '../models/service.model';
 import { BusinessModel } from '../models/business.model';
 import { CustomError } from '../types/customError';
-import { Model } from 'mongoose';
 
 jest.mock('../models/service.model');
 jest.mock('../models/business.model');

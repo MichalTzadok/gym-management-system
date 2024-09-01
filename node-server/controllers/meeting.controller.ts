@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { CustomError } from '../types/customError';
-import { createMeeting, deleteMeeting, getMeeting, getMeetings, getMeetingsByUserId, updateMeeting } from '../services/meeting.service';
+import { createMeeting, deleteMeeting, getMeeting, getMeetings, getUserMeetings, updateMeeting } from '../services/meeting.service';
 
 export const post_meeting = async (req: Request, res: Response) => {
     try {
@@ -59,13 +59,13 @@ export const put_meeting = async (req: Request, res: Response) => {
         return res.status((error instanceof CustomError && error.code) || 500).json({ message: error instanceof CustomError && error.message || 'Error during updating meeting' });
     }
 }; 
-
-export const get_meetings_by_user = async (req: Request, res: Response) => {
+export const get_user_meetings = async (req: Request, res: Response) => {
     try {
-        const meetings = await getMeetingsByUserId(req);
+        const { userId } = req.params;
+        const meetings = await getUserMeetings(req); 
         return res.status(200).json({ meetings });
-    } catch (error) {
-        console.error('Error getting meetings for user:', error);
-        return res.status((error instanceof CustomError && error.code) || 500).json({message: error instanceof CustomError && error.message ||  'An error occurred while getting the meetings for the user'});
     }
-};
+    catch (error) {
+        console.error('Error getting user meetings:', error);
+        return res.status((error instanceof CustomError && error.code) || 500).json({ message: (error instanceof CustomError && error.message) || 'An error occurred while getting the user meetings' });
+    }}

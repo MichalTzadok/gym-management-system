@@ -20,3 +20,4 @@ const meetingSchema: Schema<IMeeting> = new Schema({
 const MeetingModel = model<IMeeting>('Meeting', meetingSchema);
 
 export { MeetingModel, IMeeting };
+

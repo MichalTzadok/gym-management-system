@@ -1,71 +1,45 @@
-// import React, { useState, useEffect } from 'react';
-// import { getCustomers, deleteCustomer } from '../../api/apiCustomers';
+import { useEffect, useState } from 'react';
+import { User } from '../../interfaces/User';
+import { getCustomers } from '../../api/customers';
 
-// const Customers: React.FC = () => {
-//   const [customers, setCustomers] = useState([]);
-//   const [newCustomer, setNewCustomer] = useState({ name: '', email: '', phone: '' });
+const Customers = () => {
+  const [customers, setCustomers] = useState<User[]>([]);
 
-//   useEffect(() => {
-//     // Fetch customers
-//     getCustomers().then(setCustomers);
-//   }, []);
+  const fetchCustomers = async () => {
+    try {
+      const customersData = await getCustomers();
+      console.log(customersData);
 
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = e.target;
-//     setNewCustomer({ ...newCustomer, [name]: value });
-//   };
+      if (customersData && Array.isArray(customersData.users)) {
+        setCustomers(customersData.users);
+      } else {
+        console.error('Unexpected data format:', customersData);
+      }
+    } catch (error) {
+      console.error('Error fetching customers:', error);
+    }
+  };
 
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     // Add new customer
-//     // Assuming the API supports adding customers
-//   };
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
-//   const handleDelete = (id: string) => {
-//     // Delete customer
-//     deleteCustomer(id).then(() => setCustomers(customers.filter(customer => customer.id !== id)));
-//   };
+  return (
+    <div>
+      <h2>Customer List</h2>
+      {customers.length > 0 ? (
+        <ul>
+          {customers.map((customer) => (
+            <li key={customer.id}>
+              <strong>name:</strong> {customer.username} <strong>- email:</strong> {customer.email}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No customers found.</p>
+      )}
+    </div>
+  );
+};
 
-//   return (
-//     <div>
-//       <h2>Customers</h2>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           name="name"
-//           value={newCustomer.name}
-//           onChange={handleChange}
-//           placeholder="Name"
-//           required
-//         />
-//         <input
-//           type="email"
-//           name="email"
-//           value={newCustomer.email}
-//           onChange={handleChange}
-//           placeholder="Email"
-//           required
-//         />
-//         <input
-//           type="text"
-//           name="phone"
-//           value={newCustomer.phone}
-//           onChange={handleChange}
-//           placeholder="Phone"
-//           required
-//         />
-//         <button type="submit">Add Customer</button>
-//       </form>
-//       <ul>
-//         {customers.map(customer => (
-//           <li key={customer.id}>
-//             {customer.name} - {customer.email} - {customer.phone}
-//             <button onClick={() => handleDelete(customer.id)}>Delete</button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Customers;
+export default Customers;

@@ -18,7 +18,10 @@ const Signup: React.FC = () => {
       const signUpData = { username, email, password, role };
       const userData = await signUp(signUpData);
       authContext?.setAuth(userData);
-      navigate('/'); 
+      if(userData.role==='admin')    
+        navigate('/admin');
+      else
+        navigate('/Home');
     } catch (error) {
       console.error('Error during signup:', error);
     }
